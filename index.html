@@ -230,11 +230,6 @@
   .carousel-counter { margin-top: 12px; color: white; font-size: 13px; font-weight: 600; background: rgba(0,0,0,0.5); padding: 4px 12px; border-radius: 12px; }
   .carousel-close { position: absolute; top: -35px; right: -10px; color: white; font-size: 26px; cursor: pointer; font-weight: bold; background: none; border: none; transition: opacity 0.2s; }
   .carousel-close:hover { opacity: 0.7; }
-
-  /* Mode Switch Pill */
-  .view-mode-toggle { display: flex; background: var(--input-bg); border: 1px solid var(--border); border-radius: 8px; padding: 2px; }
-  .mode-btn { background: transparent; border: none; padding: 6px 12px; font-size: 12px; font-weight: 600; color: var(--text-muted); cursor: pointer; border-radius: 6px; transition: background 0.2s, color 0.2s; }
-  .mode-btn.active { background: var(--primary); color: white; }
 </style>
 </head>
 <body>
@@ -328,30 +323,24 @@
   <div class="main-content">
     <div class="top-header">
       <h1 id="page-title">Dashboard</h1>
-      <div style="display: flex; align-items: center; gap: 15px;">
-        <div class="view-mode-toggle">
-          <button class="mode-btn active" id="mode-pips-btn" onclick="setGlobalViewMode('pips')">Pips View</button>
-          <button class="mode-btn" id="mode-pnl-btn" onclick="setGlobalViewMode('pnl')">PnL ($) View</button>
-        </div>
-        <span style="font-size: 12px; font-weight: 600; color: var(--text-muted);" id="current-date"></span>
-      </div>
+      <span style="font-size: 12px; font-weight: 600; color: var(--text-muted);" id="current-date"></span>
     </div>
 
     <!-- Dashboard Tab -->
     <div id="tab-dashboard" class="tab-content active">
       <div class="stats-grid">
         <div class="stat-card">
-          <div style="display:flex; justify-content:space-between; align-items:center;"><span id="dash-total-label">Total Net Pips</span><button class="btn-action" id="pips-eye-btn" onclick="togglePipsVisibility()">👁️</button></div>
+          <div style="display:flex; justify-content:space-between; align-items:center;"><span>Total Net Pips</span><button class="btn-action" id="pips-eye-btn" onclick="togglePipsVisibility()">👁️</button></div>
           <h2 id="dash-total-pips">+0.0</h2>
         </div>
         <div class="stat-card"><span>Win Rate</span><h2 id="dash-win-rate" class="text-green">0%</h2></div>
         <div class="stat-card"><span>Total Trades</span><h2 id="dash-total-trades">0</h2></div>
       </div>
       <div class="dashboard-grid">
-        <div class="panel" style="margin-bottom:0;"><h3 class="panel-title" id="chart-panel-title">Cumulative Performance (Pips)</h3><div class="chart-container"><canvas id="perfChart"></canvas></div></div>
+        <div class="panel" style="margin-bottom:0;"><h3 class="panel-title">Cumulative Performance (Pips)</h3><div class="chart-container"><canvas id="perfChart"></canvas></div></div>
         <div class="panel" style="margin-bottom:0;">
           <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
-            <h3 class="panel-title" id="cal-panel-title" style="border:none; margin:0; padding:0;">Monthly Pips</h3>
+            <h3 class="panel-title" style="border:none; margin:0; padding:0;">Monthly Pips</h3>
             <div><button onclick="changeMonth(-1)" class="btn-action">‹</button><span id="cal-month-label" style="font-size: 12px; font-weight:600;"></span><button onclick="changeMonth(1)" class="btn-action">›</button></div>
           </div>
           <div class="calendar-grid" id="cal-grid"></div>
@@ -377,10 +366,7 @@
               <div class="manage-group"><input type="text" id="new-emotion" placeholder="Add Emotion"><button type="button" class="btn-action btn-add" onclick="addOption('emotion')">+</button><button type="button" class="btn-action btn-del-opt" onclick="deleteOption('emotion')">X</button></div>
             </div>
             <div><label>Direction & Prices</label><select id="direction"><option value="Buy" class="text-buy">Buy</option><option value="Sell" class="text-sell">Sell</option></select><input type="number" step="any" id="entry" placeholder="Entry Price" required style="margin-top:5px;"><input type="number" step="any" id="exit" placeholder="Exit Price" required style="margin-top:5px;"></div>
-            <div>
-              <label>Pips & Outcome</label><input type="number" step="any" id="pips" placeholder="Net Pips" required><select id="outcome" style="margin-top:5px;"><option value="Win">Win</option><option value="Loss">Loss</option><option value="BE">Break Even</option></select>
-              <label style="margin-top:5px;">Profit / Loss ($) [Optional]</label><input type="number" step="any" id="profit" placeholder="e.g. 150 or -50">
-            </div>
+            <div><label>Pips & Outcome</label><input type="number" step="any" id="pips" placeholder="Net Pips" required><select id="outcome" style="margin-top:5px;"><option value="Win">Win</option><option value="Loss">Loss</option><option value="BE">Break Even</option></select></div>
             
             <div style="grid-column: span 2;">
               <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
@@ -430,7 +416,7 @@
         <h2 class="panel-title">Logged Trades</h2>
         <div class="table-wrapper">
           <table class="journal-table">
-            <thead><tr><th>Date</th><th>Day</th><th>Pair</th><th>Session</th><th>Trend</th><th>Dir</th><th>Levels</th><th>Conf</th><th>Entry/Exit</th><th>Outcome</th><th id="th-pips-col">Pips</th><th>Emotion</th><th>Pros</th><th>Cons</th><th>Charts</th><th>Actions</th></tr></thead>
+            <thead><tr><th>Date</th><th>Day</th><th>Pair</th><th>Session</th><th>Trend</th><th>Dir</th><th>Levels</th><th>Conf</th><th>Entry/Exit</th><th>Outcome</th><th>Pips</th><th>Emotion</th><th>Pros</th><th>Cons</th><th>Charts</th><th>Actions</th></tr></thead>
             <tbody id="journalTableBody"></tbody>
           </table>
         </div>
@@ -551,10 +537,7 @@
         <div style="grid-column: span 2;"><label>Levels (Multi-Select)</label><div class="checkbox-list" id="m-levels-container"></div></div>
         <div><label>Confirmation</label><select id="m-conf-select"></select><label style="margin-top:8px;">Emotions</label><select id="m-emotion-select"></select></div>
         <div><label>Direction & Prices</label><select id="m-direction"><option value="Buy" class="text-buy">Buy</option><option value="Sell" class="text-sell">Sell</option></select><input type="number" step="any" id="m-entry" placeholder="Entry Price" required style="margin-top:5px;"><input type="number" step="any" id="m-exit" placeholder="Exit Price" required style="margin-top:5px;"></div>
-        <div>
-          <label>Pips & Outcome</label><input type="number" step="any" id="m-pips" placeholder="Net Pips" required><select id="m-outcome" style="margin-top:5px;"><option value="Win">Win</option><option value="Loss">Loss</option><option value="BE">Break Even</option></select>
-          <label style="margin-top:5px;">Profit / Loss ($) [Optional]</label><input type="number" step="any" id="m-profit" placeholder="e.g. 150 or -50">
-        </div>
+        <div><label>Pips & Outcome</label><input type="number" step="any" id="m-pips" placeholder="Net Pips" required><select id="m-outcome" style="margin-top:5px;"><option value="Win">Win</option><option value="Loss">Loss</option><option value="BE">Break Even</option></select></div>
         <div style="grid-column: span 2;">
           <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
             <div><label class="text-green">Trade Pros</label><textarea id="m-trade-pros"></textarea></div>
@@ -700,25 +683,10 @@
   window.levels = [];
   let currentStagedLinks = [];
   let selectedImportType = 'csv';
-  let globalViewMode = 'pips'; // 'pips' or 'pnl'
 
-  let chartInstance = null, calDate = new Date(), rawPipsValue = 0, rawPnlValue = 0, isPipsHidden = false;
+  let chartInstance = null, calDate = new Date(), rawPipsValue = 0, isPipsHidden = false;
   let currentCarouselImages = [], currentCarouselIndex = 0;
   document.getElementById('current-date').innerText = new Date().toDateString();
-
-  function setGlobalViewMode(mode) {
-    globalViewMode = mode;
-    document.getElementById('mode-pips-btn').classList.toggle('active', mode === 'pips');
-    document.getElementById('mode-pnl-btn').classList.toggle('active', mode === 'pnl');
-    
-    document.getElementById('dash-total-label').innerText = mode === 'pips' ? 'Total Net Pips' : 'Total Net PnL ($)';
-    document.getElementById('chart-panel-title').innerText = mode === 'pips' ? 'Cumulative Performance (Pips)' : 'Cumulative Performance (PnL $)';
-    document.getElementById('cal-panel-title').innerText = mode === 'pips' ? 'Monthly Pips' : 'Monthly PnL ($)';
-    document.getElementById('th-pips-col').innerText = mode === 'pips' ? 'Pips' : 'PnL ($)';
-
-    updateDashboard();
-    renderJournalTable();
-  }
 
   function showToast(message, type = 'success') {
     const container = document.getElementById('toast-container');
@@ -815,7 +783,6 @@
                 exit: clean[9] || '0',
                 outcome: clean[10] || 'Win',
                 pips: parseFloat(clean[11]) || 0,
-                profit: clean[15] ? parseFloat(clean[15]) : null,
                 emotion: clean[12] || 'Patient',
                 pros: clean[13] || '',
                 cons: clean[14] || '',
@@ -855,10 +822,10 @@
       document.body.appendChild(a); a.click(); document.body.removeChild(a);
       showToast('Trades exported successfully as JSON!', 'success');
     } else {
-      let csv = 'Date,Day,Pair,Session,Trend,Direction,Levels,Confirmation,Entry,Exit,Outcome,Pips,Emotion,Pros,Cons,Profit\n';
+      let csv = 'Date,Day,Pair,Session,Trend,Direction,Levels,Confirmation,Entry,Exit,Outcome,Pips,Emotion,Pros,Cons\n';
       window.trades.forEach(t => {
         let lvs = (t.levels || []).join('; ');
-        csv += `"${t.date}","${t.day}","${t.pair}","${t.session}","${t.trend}","${t.direction}","${lvs}","${t.conf}","${t.entry}","${t.exit}","${t.outcome}","${t.pips}","${t.emotion || 'Patient'}","${(t.pros||'').replace(/"/g, '""')}","${(t.cons||'').replace(/"/g, '""')}","${t.profit !== null && t.profit !== undefined ? t.profit : ''}"\n`;
+        csv += `"${t.date}","${t.day}","${t.pair}","${t.session}","${t.trend}","${t.direction}","${lvs}","${t.conf}","${t.entry}","${t.exit}","${t.outcome}","${t.pips}","${t.emotion || 'Patient'}","${(t.pros||'').replace(/"/g, '""')}","${(t.cons||'').replace(/"/g, '""')}"\n`;
       });
       const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
       const url = URL.createObjectURL(blob);
@@ -1104,7 +1071,6 @@
   function saveTrade(links) {
     const outcome = document.getElementById('outcome').value;
     const rawPips = document.getElementById('pips').value;
-    const rawProfit = document.getElementById('profit').value;
     const trade = {
       id: Date.now(), date: document.getElementById('date').value, day: document.getElementById('day').value,
       pair: document.getElementById('pair-select').value, session: document.getElementById('session').value,
@@ -1112,9 +1078,7 @@
       levels: Array.from(document.querySelectorAll('#levels-container input:checked')).map(c => c.value),
       conf: document.getElementById('conf-select').value, emotion: document.getElementById('emotion-select').value,
       entry: document.getElementById('entry').value, exit: document.getElementById('exit').value,
-      pips: formatPips(rawPips, outcome),
-      profit: rawProfit !== '' ? parseFloat(rawProfit) : null,
-      outcome: outcome,
+      pips: formatPips(rawPips, outcome), outcome: outcome,
       pros: document.getElementById('trade-pros').value || '',
       cons: document.getElementById('trade-cons').value || '',
       screenshots: links
@@ -1139,7 +1103,6 @@
     document.getElementById('m-conf-select').value = trade.conf; document.getElementById('m-emotion-select').value = trade.emotion || 'Patient';
     document.getElementById('m-entry').value = trade.entry; document.getElementById('m-exit').value = trade.exit;
     document.getElementById('m-pips').value = Math.abs(trade.pips); document.getElementById('m-outcome').value = trade.outcome;
-    document.getElementById('m-profit').value = (trade.profit !== null && trade.profit !== undefined) ? trade.profit : '';
     document.getElementById('m-trade-pros').value = trade.pros || '';
     document.getElementById('m-trade-cons').value = trade.cons || '';
     document.querySelectorAll('#m-levels-container input').forEach(cb => { cb.checked = trade.levels && trade.levels.includes(cb.value); });
@@ -1152,7 +1115,6 @@
     e.preventDefault();
     const editId = document.getElementById('modal-edit-id').value;
     const outcome = document.getElementById('m-outcome').value; const rawPips = document.getElementById('m-pips').value;
-    const rawProfit = document.getElementById('m-profit').value;
     window.trades = window.trades.map(t => {
       if(t.id == editId) {
         return {
@@ -1162,9 +1124,7 @@
           levels: Array.from(document.querySelectorAll('#m-levels-container input:checked')).map(c => c.value),
           conf: document.getElementById('m-conf-select').value, emotion: document.getElementById('m-emotion-select').value,
           entry: document.getElementById('m-entry').value, exit: document.getElementById('m-exit').value,
-          pips: formatPips(rawPips, outcome),
-          profit: rawProfit !== '' ? parseFloat(rawProfit) : null,
-          outcome: outcome,
+          pips: formatPips(rawPips, outcome), outcome: outcome,
           pros: document.getElementById('m-trade-pros').value || '',
           cons: document.getElementById('m-trade-cons').value || ''
         };
@@ -1219,19 +1179,12 @@
       let lvs = (t.levels || []).map(l => `<span class="badge">${l}</span>`).join('');
       let hasImg = t.screenshots && t.screenshots.length > 0;
 
-      let displayVal = '';
-      if (globalViewMode === 'pips') {
-        displayVal = t.pips;
-      } else {
-        displayVal = (t.profit !== null && t.profit !== undefined) ? (t.profit >= 0 ? `+$${t.profit}` : `-$${Math.abs(t.profit)}`) : '-';
-      }
-
       tbody.innerHTML += `
         <tr>
           <td>${t.date}</td><td>${t.day}</td><td><strong>${t.pair}</strong></td>
           <td>${t.session}</td><td>${t.trend}</td><td class="${t.direction==='Buy'?'text-buy':'text-sell'}">${t.direction}</td>
           <td>${lvs}</td><td>${t.conf}</td><td>${t.entry} / ${t.exit}</td>
-          <td class="${ocClass}">${t.outcome}</td><td class="${ocClass}">${displayVal}</td>
+          <td class="${ocClass}">${t.outcome}</td><td class="${ocClass}">${t.pips}</td>
           <td>${t.emotion || 'Patient'}</td>
           <td style="max-width: 150px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" title="${t.pros || ''}">${t.pros || '-'}</td>
           <td style="max-width: 150px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" title="${t.cons || ''}">${t.cons || '-'}</td>
@@ -1259,19 +1212,10 @@
   function togglePipsVisibility() {
     isPipsHidden = !isPipsHidden;
     document.getElementById('pips-eye-btn').innerText = isPipsHidden ? '🙈' : '👁️';
-    renderMetricValues(); renderCalendar();
+    renderPipsValue(); renderCalendar();
   }
 
-  function renderMetricValues() {
-    const valEl = document.getElementById('dash-total-pips');
-    if (globalViewMode === 'pips') {
-      valEl.className = rawPipsValue >= 0 ? 'text-green' : 'text-red';
-      valEl.innerText = isPipsHidden ? '****' : ((rawPipsValue >= 0 ? '+' : '') + rawPipsValue.toFixed(1));
-    } else {
-      valEl.className = rawPnlValue >= 0 ? 'text-green' : 'text-red';
-      valEl.innerText = isPipsHidden ? '****' : ((rawPnlValue >= 0 ? '+$' : '-$') + Math.abs(rawPnlValue).toFixed(2));
-    }
-  }
+  function renderPipsValue() { document.getElementById('dash-total-pips').innerText = isPipsHidden ? '****' : ((rawPipsValue >= 0 ? '+' : '') + rawPipsValue.toFixed(1)); }
 
   function animateValue(id, start, end, duration, isPips = false, isWinRate = false) {
     const obj = document.getElementById(id);
@@ -1283,11 +1227,7 @@
       let currentVal = progress * (end - start) + start;
       
       if (isPips) {
-        if (globalViewMode === 'pips') {
-          obj.innerText = (currentVal >= 0 ? '+' : '') + currentVal.toFixed(1);
-        } else {
-          obj.innerText = (currentVal >= 0 ? '+$' : '-$') + Math.abs(currentVal).toFixed(2);
-        }
+        obj.innerText = (currentVal >= 0 ? '+' : '') + currentVal.toFixed(1);
       } else if (isWinRate) {
         obj.innerText = currentVal.toFixed(1) + '%';
       } else {
@@ -1302,20 +1242,13 @@
   }
 
   function updateDashboard() {
-    let totPips = 0, totPnl = 0, wins = 0;
-    window.trades.forEach(t => { 
-      totPips += t.pips; 
-      if (t.profit !== null && t.profit !== undefined) totPnl += t.profit;
-      if(t.outcome === 'Win' || t.outcome === 'BE') wins++; 
-    });
+    let totPips = 0, wins = 0;
+    window.trades.forEach(t => { totPips += t.pips; if(t.outcome === 'Win' || t.outcome === 'BE') wins++; });
     rawPipsValue = totPips;
-    rawPnlValue = totPnl;
-
-    const targetVal = globalViewMode === 'pips' ? totPips : totPnl;
+    document.getElementById('dash-total-pips').className = totPips >= 0 ? 'text-green' : 'text-red';
     
     if (!isPipsHidden) {
-      animateValue('dash-total-pips', 0, targetVal, 600, true, false);
-      document.getElementById('dash-total-pips').className = targetVal >= 0 ? 'text-green' : 'text-red';
+      animateValue('dash-total-pips', 0, totPips, 600, true, false);
     } else {
       document.getElementById('dash-total-pips').innerText = '****';
     }
@@ -1349,8 +1282,7 @@
 
     if (reportType === 'weekly' || reportType === 'all') {
       let totPips = window.trades.reduce((sum, t) => sum + t.pips, 0);
-      let totPnl = window.trades.reduce((sum, t) => sum + (t.profit || 0), 0);
-      tips.push(`📅 <strong>Weekly Summary:</strong> Across ${total} logged trades, you hold <strong>${totPips >= 0 ? '+' : ''}${totPips.toFixed(1)} pips</strong> ($${totPnl.toFixed(2)}) with a ${winRate.toFixed(1)}% win rate.`);
+      tips.push(`📅 <strong>Weekly Summary:</strong> Across ${total} logged trades, you hold a net total of <strong>${totPips >= 0 ? '+' : ''}${totPips.toFixed(1)} pips</strong> with a ${winRate.toFixed(1)}% win rate.`);
       
       let sessionPips = {};
       window.trades.forEach(t => { sessionPips[t.session] = (sessionPips[t.session] || 0) + t.pips; });
@@ -1383,16 +1315,12 @@
   function renderGraph() {
     let sorted = [...window.trades].sort((a,b) => new Date(a.date) - new Date(b.date));
     let labels = ["Start"], data = [0], cumulative = 0;
-    sorted.forEach(t => { 
-      cumulative += (globalViewMode === 'pips' ? t.pips : (t.profit || 0)); 
-      labels.push(t.date); 
-      data.push(cumulative); 
-    });
+    sorted.forEach(t => { cumulative += t.pips; labels.push(t.date); data.push(cumulative); });
     const ctx = document.getElementById('perfChart').getContext('2d');
     if(chartInstance) chartInstance.destroy();
     chartInstance = new Chart(ctx, {
       type: 'line',
-      data: { labels: labels, datasets: [{ label: globalViewMode === 'pips' ? 'Cumulative Pips' : 'Cumulative PnL ($)', data: data, borderColor: '#2563eb', backgroundColor: 'rgba(37, 99, 235, 0.1)', fill: true, tension: 0.2 }] },
+      data: { labels: labels, datasets: [{ label: 'Cumulative Pips', data: data, borderColor: '#2563eb', backgroundColor: 'rgba(37, 99, 235, 0.1)', fill: true, tension: 0.2 }] },
       options: { responsive: true, maintainAspectRatio: false }
     });
   }
@@ -1407,28 +1335,19 @@
     let firstDay = new Date(y, m, 1).getDay(); firstDay = (firstDay === 0) ? 6 : firstDay - 1;
     const daysInMonth = new Date(y, m + 1, 0).getDate();
     for(let i=0; i<firstDay; i++) grid.innerHTML += `<div class="cal-cell empty"></div>`;
-    let weekVal = 0, col = firstDay;
+    let weekPips = 0, col = firstDay;
     for(let d=1; d<=daysInMonth; d++) {
-      let dayVal = window.trades.filter(t => {
+      let dayPips = window.trades.filter(t => {
         let td = new Date(t.date); return td.getUTCFullYear()===y && td.getUTCMonth()===m && td.getUTCDate()===d;
-      }).reduce((acc, t) => acc + (globalViewMode === 'pips' ? t.pips : (t.profit || 0)), 0);
-      weekVal += dayVal;
-      
-      let displayDayVal = '';
-      if (dayVal !== 0) {
-        if (isPipsHidden) displayDayVal = '****';
-        else displayDayVal = globalViewMode === 'pips' ? dayVal.toFixed(0) : `$${dayVal.toFixed(0)}`;
-      }
-
-      grid.innerHTML += `<div class="cal-cell"><div>${d}</div><div class="${dayVal>=0?'text-green':'text-red'}">${displayDayVal}</div></div>`;
+      }).reduce((acc, t) => acc + t.pips, 0);
+      weekPips += dayPips;
+      let displayDayPips = dayPips !== 0 ? (isPipsHidden ? '****' : dayPips.toFixed(0)) : '';
+      grid.innerHTML += `<div class="cal-cell"><div>${d}</div><div class="${dayPips>=0?'text-green':'text-red'}">${displayDayPips}</div></div>`;
       col++;
       if(col === 7) {
-        let displayWeekVal = '';
-        if (isPipsHidden) displayWeekVal = '****';
-        else displayWeekVal = globalViewMode === 'pips' ? weekVal.toFixed(0) : `$${weekVal.toFixed(0)}`;
-
-        grid.innerHTML += `<div class="cal-cell weekly-cell">${displayWeekVal}</div>`;
-        weekVal = 0; col = 0;
+        let displayWeekPips = isPipsHidden ? '****' : weekPips.toFixed(0);
+        grid.innerHTML += `<div class="cal-cell weekly-cell">${displayWeekPips}</div>`;
+        weekPips = 0; col = 0;
       }
     }
   }
